@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>UniMatch - Login</title>
-    <meta name="author" content="Andrew Abbott and Chris Dai" />
-    <meta name="description" content="Log in to UniMatch." />
+    <title>UniMatch - Home</title>
+    <meta name="author" content="Chris Dai" />
+    <meta name="description" content="Find your university match." />
     <meta
       name="keywords"
       content="university, unimatch, university match, university finder, college finder, college, college match, college rankings, best university 2025, best college 2025"
@@ -18,8 +18,9 @@
       crossorigin="anonymous"
     />
     <!-- Link LESS  -->
-    <link rel="stylesheet/less" type="text/css" href="styles/style.less" />
     <link rel="stylesheet/less" type="text/css" href="styles/navbar.less" />
+    <link rel="stylesheet/less" type="text/css" href="styles/home.less" />
+    <link rel="stylesheet/less" type="text/css" href="styles/style.less" />
     <script src="https://cdn.jsdelivr.net/npm/less"></script>
 
     <!-- Import Font  -->
@@ -33,6 +34,8 @@
   <body>
     <!-- Navbar  -->
     <header>
+      <!-- Working URL  -->
+      <!-- https://cs4640.cs.virginia.edu/yrg9mn/sprint2/index.html -->
       <nav class="custom-navbar">
         <div class="nav-container">
           <div class="left-section">
@@ -52,14 +55,16 @@
               <span class="bar"></span>
             </button>
 
-            <ul class="nav-links">
-              <li>
-                <a class="hover-underline-animation" href="search.html"
+            <ul class="nav-links" id="nav-links">
+              <li class="">
+                <a class="hover-underline-animation center" href="search.html"
                   >Search Colleges</a
                 >
               </li>
-              <li>
-                <a class="hover-underline-animation" href="about.html">About</a>
+              <li class="">
+                <a class="hover-underline-animation center" href="about.html"
+                  >About</a
+                >
               </li>
               <li>
                 <a class="hover-underline-animation center" href="profile.html"
@@ -75,7 +80,32 @@
       </nav>
     </header>
 
-    Hello
+    <!-- Main content  -->
+    <main class="">
+      <div class="hero">
+        <div class="hero-left">
+          <div class="hero-text">
+            <h1 class="">Find Your Perfect Fit</h1>
+            <p>
+              Our goal is to simplify the college application process by helping
+              students find college that meet all of their preferences. We aim
+              to reduce stress and give students a balance of safety, target,
+              and reach schools.
+            </p>
+            <a
+              class="btn btn-primary rounded-4 view-colleges-btn"
+              href="search.html"
+              >View Colleges</a
+            >
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="square">
+            <div class="square-img"></div>
+          </div>
+        </div>
+      </div>
+    </main>
 
     <script src="hamburger.js"></script>
   </body>

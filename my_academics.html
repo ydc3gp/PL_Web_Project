@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UniMatch - Edit My Academics Information</title>
+    <meta name="author" content="Andrew Abbott, navbar by Chris Dai" />
+    <meta name="description" content="Find your university match." />
+    <meta
+      name="keywords"
+      content="university, unimatch, university match, university finder, college finder, college, college match, college rankings, best university 2025, best college 2025"
+    />
+    <!-- Link Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="styles/editaccount.css"/>
+    <!-- Link LESS  -->
+    <link rel="stylesheet/less" type="text/css" href="styles/style.less" />
+    <link rel="stylesheet/less" type="text/css" href="styles/navbar.less" />
+    <script src="https://cdn.jsdelivr.net/npm/less"></script>
+
+    <!-- Import Font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Navbar  -->
+    <header>
+      <nav class="custom-navbar">
+        <div class="nav-container">
+          <div class="left-section">
+            <span class="logo">
+              <a href="index.html">
+                <img src="assets/logo.png" alt="UniMatch Logo" />
+                <span class="logo-text">
+                  <span id="logo-text-uni">Uni</span>Match
+                </span>
+              </a>
+            </span>
+
+            <!-- hamburger menu  -->
+            <button class="hamburger" aria-label="Menu">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </button>
+
+            <ul class="nav-links" id="nav-links">
+              <li class="">
+                <a class="hover-underline-animation center" href="search.html"
+                  >Search Colleges</a
+                >
+              </li>
+              <li class="">
+                <a class="hover-underline-animation center" href="about.html"
+                  >About</a
+                >
+              </li>
+              <li>
+                <a class="hover-underline-animation center" href="profile.html"
+                  >Edit Profile</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="right-section">
+            <a class="btn btn-primary" href="login.html">Log In</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="container mt-4">
+      <h1 class="mb-4 text-center">Edit Account Information</h1>
+
+      <div class="row">
+        <!-- Left Side (Navigation) -->
+        <div class="col-md-4">
+          <div class="d-grid gap-3">
+            <a href="profile.html" class="btn btn-outline-primary">Profile</a>
+            <a href="my_academics.html" class="btn btn-primary">My Academics</a>
+            <a href="my_colleges.html" class="btn btn-outline-primary"
+              >My Colleges</a
+            >
+          </div>
+        </div>
+
+        <!-- Right Side (My Academics Information) -->
+        <div class="col-md-8">
+          <div class="card p-4">
+            <h2 class="mb-3">Academic Information</h2>
+            <form>
+              <div class="mb-3">
+                <label for="gpa" class="form-label">Grade Point Average</label>
+                <input
+                  id="gpa"
+                  type="number"
+                  class="form-control"
+                  step="0.01"
+                  min="0.00"
+                  max="5.30"
+                  aria-label="Grade Point Average"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="class-rank">Class Rank</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="class-rank"
+                  step="1"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="class-size">Class Size</label>
+                <input
+                  type="number"
+                  id="class-size"
+                  class="form-control"
+                  step="1"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="sat-score">SAT Score</label>
+                <input
+                  id="sat-score"
+                  type="number"
+                  class="form-control"
+                  step="10"
+                  min="0"
+                  max="1600"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="act-score">ACT Score</label>
+                <input
+                  id="act-score"
+                  type="number"
+                  class="form-control"
+                  step="1"
+                  min="0"
+                  max="36"
+                />
+              </div>
+
+              <button type="submit" class="btn btn-primary w-100">
+                Save Changes
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="hamburger.js"></script>
+  </body>
+</html>

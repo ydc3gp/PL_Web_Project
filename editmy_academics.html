@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>UniMatch - Edit My Profile Information</title>
+    <title>UniMatch - Edit My Academics Information</title>
     <meta name="author" content="Andrew Abbott and Chris Dai" />
     <meta name="description" content="Find your university match." />
     <meta
@@ -23,8 +23,6 @@
     <link rel="stylesheet/less" type="text/css" href="styles/navbar.less" />
     <script src="https://cdn.jsdelivr.net/npm/less"></script>
 
-
-
     <!-- Import Font  -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -36,28 +34,28 @@
   <body>
     <!-- Navbar  -->
     <header>
-      <nav class="custom-navbar">
-        <div class="nav-container">
-          <div class="left-section">
-            <span class="logo">
-              <a href="index.html">
-                <img src="assets/logo.png" alt="UniMatch Logo" />
-                <span class="logo-text">
-                  <span id="logo-text-uni">Uni</span>Match
-                </span>
-              </a>
-            </span>
-            <ul class="nav-links">
-              <li><a href="search.html">Search Colleges</a></li>
-              <li><a href="about.html">About</a></li>
-            </ul>
+        <nav class="custom-navbar">
+          <div class="nav-container">
+            <div class="left-section">
+              <span class="logo">
+                <a href="index.html">
+                  <img src="assets/logo.png" alt="UniMatch Logo" />
+                  <span class="logo-text">
+                    <span id="logo-text-uni">Uni</span>Match
+                  </span>
+                </a>
+              </span>
+              <ul class="nav-links">
+                <li><a href="search.html">Search Colleges</a></li>
+                <li><a href="about.html">About</a></li>
+              </ul>
+            </div>
+            <div class="right-section">
+              <a class="btn btn-primary" href="login.html">Log In</a>
+            </div>
           </div>
-          <div class="right-section">
-            <a class="btn btn-primary" href="login.html">Log In</a>
-          </div>
-        </div>
-      </nav>
-    </header>
+        </nav>
+      </header>
     <div class="container mt-4">
       <h1 class="mb-4 text-center">Edit Account Information</h1>
   
@@ -65,44 +63,44 @@
         <!-- Left Side (Navigation) -->
         <div class="col-md-4">
           <div class="d-grid gap-3">
-            <a href="editprofileinfo.html" class="btn btn-primary">Profile</a>
-            <a href="editmy_academics.html" class="btn btn-outline-primary">My Academics</a>
+            <a href="editprofileinfo.html" class="btn btn-outline-primary">Profile</a>
+            <a href="editmy_academics.html" class="btn btn-primary">My Academics</a>
             <a href="editmy_colleges.html" class="btn btn-outline-primary">My Colleges</a>
           </div>
         </div>
   
-        <!-- Right Side (Profile Information) -->
+        <!-- Right Side (My Academics Information) -->
         <div class="col-md-8">
           <div class="card p-4">
-            <h2 class="mb-3">Profile Information</h2>
+            <h2 class="mb-3">Academic Information</h2>
             <form>
               <div class="mb-3">
-                <label class="form-label">First Name</label>
-                <input type="text" class="form-control" value="">
+                <label class="form-label">Grade Point Average</label>
+                <input type="number" class="form-control" step="0.01" min="0.00" max="5.30">
               </div>
   
               <div class="mb-3">
-                <label class="form-label">Last Name</label>
-                <input type="text" class="form-control" value="">
+                <label class="form-label">Class Rank</label>
+                <input type="number" class="form-control" step="1">
               </div>
   
               <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input type="email" class="form-control" value="">
+                <label class="form-label">Class Size</label>
+                <input type="number" class="form-control" step="1">
               </div>
   
               <div class="mb-3">
-                <label class="form-label">Phone Number</label>
-                <input type="text" class="form-control" value="">
+                <label class="form-label">SAT Score</label>
+                <input type="number" class="form-control" step="10" min="0" max="1600">
               </div>
   
               <div class="mb-3">
-                <label class="form-label">State Residence</label>
-                <input type="text" class="form-control" value="">
+                <label class="form-label">ACT Score</label>
+                <input type="number" class="form-control" step="1" min="0" max="36">
               </div>
 
               <button type="submit" class="btn btn-primary w-100">Save Changes</button>
-
+              
             </form>
           </div>
         </div>

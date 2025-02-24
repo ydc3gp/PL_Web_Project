@@ -1,3 +1,5 @@
+// Author: Chris Dai
+
 const hamburger = document.querySelector(".hamburger");
 const navLinks = document.querySelector(".nav-links");
 const rightSection = document.querySelector(".right-section");

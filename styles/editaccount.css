@@ -6,11 +6,8 @@
 .left-section, .right-section {
     width: 100%; 
 }
-button:active {
-    transform: scale(0.85);
-    background-color: #2a5da8; 
-}
 
+  
 @media (min-width: 768px) {
     .container {
         flex-direction: row; 

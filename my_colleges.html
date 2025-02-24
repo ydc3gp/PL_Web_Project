@@ -17,13 +17,12 @@
       rel="stylesheet"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="editaccounts.css">
+    <link rel="stylesheet" href="editaccounts.css" />
     <!-- Link LESS  -->
 
     <link rel="stylesheet/less" type="text/css" href="styles/style.less" />
     <link rel="stylesheet/less" type="text/css" href="styles/navbar.less" />
     <script src="https://cdn.jsdelivr.net/npm/less"></script>
-
 
     <!-- Import Font  -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,77 +35,114 @@
   <body>
     <!-- Navbar  -->
     <header>
-        <nav class="custom-navbar">
-          <div class="nav-container">
-            <div class="left-section">
-              <span class="logo">
-                <a href="index.html">
-                  <img src="assets/logo.png" alt="UniMatch Logo" />
-                  <span class="logo-text">
-                    <span id="logo-text-uni">Uni</span>Match
-                  </span>
-                </a>
-              </span>
-              <ul class="nav-links">
-                <li><a href="search.html">Search Colleges</a></li>
-                <li><a href="about.html">About</a></li>
-              </ul>
-            </div>
-            <div class="right-section">
-              <a class="btn btn-primary" href="login.html">Log In</a>
-            </div>
+      <nav class="custom-navbar">
+        <div class="nav-container">
+          <div class="left-section">
+            <span class="logo">
+              <a href="index.html">
+                <img src="assets/logo.png" alt="UniMatch Logo" />
+                <span class="logo-text">
+                  <span id="logo-text-uni">Uni</span>Match
+                </span>
+              </a>
+            </span>
+
+            <!-- hamburger menu  -->
+            <button class="hamburger" aria-label="Menu">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </button>
+
+            <ul class="nav-links" id="nav-links">
+              <li class="">
+                <a class="hover-underline-animation center" href="search.html"
+                  >Search Colleges</a
+                >
+              </li>
+              <li class="">
+                <a class="hover-underline-animation center" href="about.html"
+                  >About</a
+                >
+              </li>
+              <li>
+                <a class="hover-underline-animation center" href="profile.html"
+                  >Edit Profile</a
+                >
+              </li>
+            </ul>
           </div>
-        </nav>
-      </header>
+          <div class="right-section">
+            <a class="btn btn-primary" href="login.html">Log In</a>
+          </div>
+        </div>
+      </nav>
+    </header>
     <div class="container mt-4">
       <h1 class="mb-4 text-center">Edit Account Information</h1>
-  
+
       <div class="row">
         <!-- Left Side (Navigation) -->
         <div class="col-md-4">
           <div class="d-grid gap-3">
             <a href="profile.html" class="btn btn-outline-primary">Profile</a>
-            <a href="my_academics.html" class="btn btn-outline-primary">My Academics</a>
+            <a href="my_academics.html" class="btn btn-outline-primary"
+              >My Academics</a
+            >
             <a href="my_colleges.html" class="btn btn-primary">My Colleges</a>
           </div>
         </div>
-  
+
         <!-- Right Side (My Colleges Information) -->
         <div class="col-md-8">
           <div class="card p-4">
             <h2 class="mb-3">Colleges Information</h2>
 
-              <div class="card position-relative mb-3">
-                <button class="btn-close position-absolute top-0 end-0 m-2" aria-label="Remove"></button>
-                <div class="card-body ">
-                    <h5 class="card-title">University of Virginia</h5>
-                    <p class="card-text">Charlottesville, VA</p>
-                    <a href="#" class="btn btn-outline-primary mt-2">View More Info</a>
-                </div>
+            <div class="card position-relative mb-3">
+              <button
+                class="btn-close position-absolute top-0 end-0 m-2"
+                aria-label="Remove"
+              ></button>
+              <div class="card-body">
+                <h5 class="card-title">University of Virginia</h5>
+                <p class="card-text">Charlottesville, VA</p>
+                <a href="#" class="btn btn-outline-primary mt-2"
+                  >View More Info</a
+                >
               </div>
+            </div>
 
-              <div class="card position-relative mb-3">
-                <button class="btn-close position-absolute top-0 end-0 m-2" aria-label="Remove"></button>
-                <div class="card-body ">
-                    <h5 class="card-title">Virginia Tech</h5>
-                    <p class="card-text">Blacksburg, VA</p>
-                    <a href="#" class="btn btn-outline-primary mt-2">View More Info</a>
-                </div>
+            <div class="card position-relative mb-3">
+              <button
+                class="btn-close position-absolute top-0 end-0 m-2"
+                aria-label="Remove"
+              ></button>
+              <div class="card-body">
+                <h5 class="card-title">Virginia Tech</h5>
+                <p class="card-text">Blacksburg, VA</p>
+                <a href="#" class="btn btn-outline-primary mt-2"
+                  >View More Info</a
+                >
               </div>
+            </div>
 
-              <div class="card position-relative mb-3">
-                <button class="btn-close position-absolute top-0 end-0 m-2" aria-label="Remove"></button>
-                <div class="card-body ">
-                    <h5 class="card-title">William & Mary</h5>
-                    <p class="card-text">Williamsburg, VA</p>
-                    <a href="#" class="btn btn-outline-primary mt-2">View More Info</a>
-                </div>
+            <div class="card position-relative mb-3">
+              <button
+                class="btn-close position-absolute top-0 end-0 m-2"
+                aria-label="Remove"
+              ></button>
+              <div class="card-body">
+                <h5 class="card-title">William & Mary</h5>
+                <p class="card-text">Williamsburg, VA</p>
+                <a href="#" class="btn btn-outline-primary mt-2"
+                  >View More Info</a
+                >
               </div>
-              
-
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <script src="hamburger.js"></script>
   </body>
 </html>

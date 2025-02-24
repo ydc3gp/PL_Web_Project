@@ -17,13 +17,11 @@
       rel="stylesheet"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="styles/editaccounts.css">
+    <link rel="stylesheet" href="styles/editaccounts.css" />
     <!-- Link LESS  -->
     <link rel="stylesheet/less" type="text/css" href="styles/style.less" />
     <link rel="stylesheet/less" type="text/css" href="styles/navbar.less" />
     <script src="https://cdn.jsdelivr.net/npm/less"></script>
-
-
 
     <!-- Import Font  -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -47,9 +45,28 @@
                 </span>
               </a>
             </span>
+
+            <!-- hamburger menu  -->
+            <button class="hamburger" aria-label="Menu">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </button>
+
             <ul class="nav-links">
-              <li><a href="search.html">Search Colleges</a></li>
-              <li><a href="about.html">About</a></li>
+              <li>
+                <a class="hover-underline-animation" href="search.html"
+                  >Search Colleges</a
+                >
+              </li>
+              <li>
+                <a class="hover-underline-animation" href="about.html">About</a>
+              </li>
+              <li>
+                <a class="hover-underline-animation center" href="profile.html"
+                  >Edit Profile</a
+                >
+              </li>
             </ul>
           </div>
           <div class="right-section">
@@ -60,17 +77,21 @@
     </header>
     <div class="container mt-4">
       <h1 class="mb-4 text-center">Edit Account Information</h1>
-  
+
       <div class="row">
         <!-- Left Side (Navigation) -->
         <div class="col-md-4">
           <div class="d-grid gap-3">
             <a href="profile.html" class="btn btn-primary">Profile</a>
-            <a href="my_academics.html" class="btn btn-outline-primary">My Academics</a>
-            <a href="my_colleges.html" class="btn btn-outline-primary">My Colleges</a>
+            <a href="my_academics.html" class="btn btn-outline-primary"
+              >My Academics</a
+            >
+            <a href="my_colleges.html" class="btn btn-outline-primary"
+              >My Colleges</a
+            >
           </div>
         </div>
-  
+
         <!-- Right Side (Profile Information) -->
         <div class="col-md-8">
           <div class="card p-4">
@@ -78,35 +99,38 @@
             <form>
               <div class="mb-3">
                 <label class="form-label">First Name</label>
-                <input type="text" class="form-control" value="">
+                <input type="text" class="form-control" value="" />
               </div>
-  
+
               <div class="mb-3">
                 <label class="form-label">Last Name</label>
-                <input type="text" class="form-control" value="">
+                <input type="text" class="form-control" value="" />
               </div>
-  
+
               <div class="mb-3">
                 <label class="form-label">Email</label>
-                <input type="email" class="form-control" value="">
+                <input type="email" class="form-control" value="" />
               </div>
-  
+
               <div class="mb-3">
                 <label class="form-label">Phone Number</label>
-                <input type="text" class="form-control" value="">
+                <input type="text" class="form-control" value="" />
               </div>
-  
+
               <div class="mb-3">
                 <label class="form-label">State Residence</label>
-                <input type="text" class="form-control" value="">
+                <input type="text" class="form-control" value="" />
               </div>
 
-              <button type="submit" class="btn btn-primary w-100">Save Changes</button>
-
+              <button type="submit" class="btn btn-primary w-100">
+                Save Changes
+              </button>
             </form>
           </div>
         </div>
       </div>
     </div>
+
+    <script src="hamburger.js"></script>
   </body>
 </html>

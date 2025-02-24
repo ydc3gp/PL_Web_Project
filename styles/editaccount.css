@@ -1,24 +1,23 @@
 .container {
-
-    flex-direction: column;
+  flex-direction: column;
 }
 
-.left-section, .right-section {
-    width: 100%; 
+.left-section,
+.right-section {
+  width: 100%;
 }
 
-  
 @media (min-width: 768px) {
-    .container {
-        flex-direction: row; 
-        display: flex;
-    }
+  .container {
+    flex-direction: row;
+    display: flex;
+  }
 
-    .left-section {
-        width: 33%;
-    }
+  .left-section {
+    width: 33%;
+  }
 
-    .right-section {
-        width: 67%;
-    }
+  .right-section {
+    width: 67%;
+  }
 }

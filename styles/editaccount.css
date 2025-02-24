@@ -1,14 +1,14 @@
-
-
-.btn-outline-primary {
-    color: #0768f7; /* Text color */
-    border-color: #0768f7; /* Border color */
-    background-color: #f7f7ff; /* Background color */
-    transition: all 0.2s ease-in-out;
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+    display: flex;
   }
-  .btn-outline-primary:hover,
-.btn-outline-primary:focus {
-  color: #f7f7ff; /* Text color on hover */
-  background-color: #0768f7; /* Background color on hover */
-  border-color: #0768f7; /* Keep border color consistent */
+
+  .left-section {
+    width: 33%;
+  }
+
+  .right-section {
+    width: 67%;
+  }
 }

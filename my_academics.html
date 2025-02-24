@@ -98,8 +98,9 @@
             <h2 class="mb-3">Academic Information</h2>
             <form>
               <div class="mb-3">
-                <label class="form-label">Grade Point Average</label>
+                <label for="gpa" class="form-label">Grade Point Average</label>
                 <input
+                  id="gpa"
                   type="number"
                   class="form-control"
                   step="0.01"
@@ -110,23 +111,47 @@
               </div>
 
               <div class="mb-3">
-                <label class="form-label">Class Rank</label>
-                <input type="number" class="form-control" step="1" aria-label="Class Rank">
+                <label class="form-label" for="class-rank">Class Rank</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="class-rank"
+                  step="1"
+                />
               </div>
 
               <div class="mb-3">
-                <label class="form-label">Class Size</label>
-                <input type="number" class="form-control" step="1" aria-label="Class Size">
+                <label class="form-label" for="class-size">Class Size</label>
+                <input
+                  type="number"
+                  id="class-size"
+                  class="form-control"
+                  step="1"
+                />
               </div>
 
               <div class="mb-3">
-                <label class="form-label">SAT Score</label>
-                <input type="number" class="form-control" step="10" min="0" max="1600" aria-label="SAT Score">
+                <label class="form-label" for="sat-score">SAT Score</label>
+                <input
+                  id="sat-score"
+                  type="number"
+                  class="form-control"
+                  step="10"
+                  min="0"
+                  max="1600"
+                />
               </div>
 
               <div class="mb-3">
-                <label class="form-label">ACT Score</label>
-                <input type="number" class="form-control" step="1" min="0" max="36" aria-label="ACT Score">
+                <label class="form-label" for="act-score">ACT Score</label>
+                <input
+                  id="act-score"
+                  type="number"
+                  class="form-control"
+                  step="1"
+                  min="0"
+                  max="36"
+                />
               </div>
 
               <button type="submit" class="btn btn-primary w-100">

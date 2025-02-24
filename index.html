@@ -45,9 +45,25 @@
                 </span>
               </a>
             </span>
-            <ul class="nav-links">
-              <li><a href="search.html">Search Colleges</a></li>
-              <li><a href="about.html">About</a></li>
+
+            <!-- hamburger menu  -->
+            <button class="hamburger" aria-label="Menu">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </button>
+
+            <ul class="nav-links" id="nav-links">
+              <li class="">
+                <a class="hover-underline-animation center" href="search.html"
+                  >Search Colleges</a
+                >
+              </li>
+              <li class="">
+                <a class="hover-underline-animation center" href="about.html"
+                  >About</a
+                >
+              </li>
             </ul>
           </div>
           <div class="right-section">
@@ -58,17 +74,32 @@
     </header>
 
     <!-- Main content  -->
-    <main class="container hero">
-      <div class="hero-left">
-        <h1 class="">Find Your Perfect Fit</h1>
-        <p>
-          Our goal is to simplify the college application process by helping
-          students find college that meet all of their preferences. We aim to
-          reduce stress and give students a balance of safety, target, and reach
-          schools.
-        </p>
+    <main class="">
+      <div class="hero">
+        <div class="hero-left">
+          <div class="hero-text">
+            <h1 class="">Find Your Perfect Fit</h1>
+            <p>
+              Our goal is to simplify the college application process by helping
+              students find college that meet all of their preferences. We aim
+              to reduce stress and give students a balance of safety, target,
+              and reach schools.
+            </p>
+            <a
+              class="btn btn-primary rounded-4 view-colleges-btn"
+              href="search.html"
+              >View Colleges</a
+            >
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="square">
+            <div class="square-img"></div>
+          </div>
+        </div>
       </div>
-      <div class="hero-right"></div>
     </main>
+
+    <script src="hamburger.js"></script>
   </body>
 </html>

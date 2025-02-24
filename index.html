@@ -18,8 +18,9 @@
       crossorigin="anonymous"
     />
     <!-- Link LESS  -->
-    <link rel="stylesheet/less" type="text/css" href="styles/style.less" />
     <link rel="stylesheet/less" type="text/css" href="styles/navbar.less" />
+    <link rel="stylesheet/less" type="text/css" href="styles/home.less" />
+    <link rel="stylesheet/less" type="text/css" href="styles/style.less" />
     <script src="https://cdn.jsdelivr.net/npm/less"></script>
 
     <!-- Import Font  -->
@@ -31,14 +32,43 @@
     />
   </head>
   <body>
-    <h1 class="">UniMatch</h1>
-    <p>
-      Hello test Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-      Cumque unde perspiciatis doloribus mollitia, commodi veniam deleniti dolor
-      quia quae, blanditiis, suscipit voluptatibus cupiditate dolore voluptate
-      nobis officia esse quos quaerat assumenda fuga? Repudiandae perspiciatis
-      esse consectetur temporibus accusamus adipisci unde architecto debitis
-      vero fugiat, minima nemo cumque quibusdam dolor soluta.
-    </p>
+    <!-- Navbar  -->
+    <header>
+      <nav class="custom-navbar">
+        <div class="nav-container">
+          <div class="left-section">
+            <span class="logo">
+              <a href="index.html">
+                <img src="assets/logo.png" alt="UniMatch Logo" />
+                <span class="logo-text">
+                  <span id="logo-text-uni">Uni</span>Match
+                </span>
+              </a>
+            </span>
+            <ul class="nav-links">
+              <li><a href="search.html">Search Colleges</a></li>
+              <li><a href="about.html">About</a></li>
+            </ul>
+          </div>
+          <div class="right-section">
+            <a class="btn btn-primary" href="login.html">Log In</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main content  -->
+    <main class="container hero">
+      <div class="hero-left">
+        <h1 class="">Find Your Perfect Fit</h1>
+        <p>
+          Our goal is to simplify the college application process by helping
+          students find college that meet all of their preferences. We aim to
+          reduce stress and give students a balance of safety, target, and reach
+          schools.
+        </p>
+      </div>
+      <div class="hero-right"></div>
+    </main>
   </body>
 </html>

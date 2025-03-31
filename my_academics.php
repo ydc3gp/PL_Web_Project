@@ -1,3 +1,64 @@
+<?php
+require_once 'includes/session.php';
+require_once 'src/Models/Academics.php';
+
+// Redirect if not logged in
+if (!Session::isLoggedIn()) {
+    header('Location: login.php');
+    exit;
+}
+
+$error = '';
+$success = '';
+$academics = new Academics();
+$academicData = $academics->getAcademicsByUserId(Session::get('user_id'));
+
+// Process form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Convert empty strings to null
+    $gpa = $_POST['gpa'] !== '' ? $_POST['gpa'] : null;
+    $classRank = $_POST['class_rank'] !== '' ? $_POST['class_rank'] : null;
+    $classSize = $_POST['class_size'] !== '' ? $_POST['class_size'] : null;
+    $satScore = $_POST['sat_score'] !== '' ? $_POST['sat_score'] : null;
+    $actScore = $_POST['act_score'] !== '' ? $_POST['act_score'] : null;
+    
+    // Validate GPA
+    if ($gpa !== null && ($gpa < 0 || $gpa > 5.3)) {
+        $error = 'GPA must be between 0.00 and 5.30';
+    } 
+    // Validate SAT Score
+    else if ($satScore !== null && ($satScore < 0 || $satScore > 1600)) {
+        $error = 'SAT score must be between 0 and 1600';
+    } 
+    // Validate ACT Score
+    else if ($actScore !== null && ($actScore < 0 || $actScore > 36)) {
+        $error = 'ACT score must be between 0 and 36';
+    } 
+    // Validate class rank and size
+    else if ($classRank !== null && $classSize !== null && $classRank > $classSize) {
+        $error = 'Class rank cannot be greater than class size';
+    } 
+    else {
+        $result = $academics->updateAcademics(
+            Session::get('user_id'),
+            $gpa,
+            $classRank,
+            $classSize,
+            $satScore,
+            $actScore
+        );
+        
+        if ($result) {
+            $success = 'Academic information updated successfully!';
+            // Refresh academic data after update
+            $academicData = $academics->getAcademicsByUserId(Session::get('user_id'));
+        } else {
+            $error = 'Failed to update academic information. Please try again.';
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -38,7 +99,7 @@
         <div class="nav-container">
           <div class="left-section">
             <span class="logo">
-              <a href="index.html">
+              <a href="index.php">
                 <img src="assets/logo.png" alt="UniMatch Logo" />
                 <span class="logo-text">
                   <span id="logo-text-uni">Uni</span>Match
@@ -55,24 +116,28 @@
 
             <ul class="nav-links" id="nav-links">
               <li class="">
-                <a class="hover-underline-animation center" href="search.html"
+                <a class="hover-underline-animation center" href="search.php"
                   >Search Colleges</a
                 >
               </li>
               <li class="">
-                <a class="hover-underline-animation center" href="about.html"
+                <a class="hover-underline-animation center" href="about.php"
                   >About</a
                 >
               </li>
               <li>
-                <a class="hover-underline-animation center" href="profile.html"
+                <a class="hover-underline-animation center" href="profile.php"
                   >Edit Profile</a
                 >
               </li>
             </ul>
           </div>
           <div class="right-section">
-            <a class="btn btn-primary" href="login.html">Log In</a>
+            <?php if (Session::isLoggedIn()): ?>
+              <a class="btn btn-danger" href="logout.php">Log Out</a>
+            <?php else: ?>
+              <a class="btn btn-primary" href="login.php">Log In</a>
+            <?php endif; ?>
           </div>
         </div>
       </nav>
@@ -84,9 +149,9 @@
         <!-- Left Side (Navigation) -->
         <div class="col-md-4">
           <div class="d-grid gap-3">
-            <a href="profile.html" class="btn btn-outline-primary">Profile</a>
-            <a href="my_academics.html" class="btn btn-primary">My Academics</a>
-            <a href="my_colleges.html" class="btn btn-outline-primary"
+            <a href="profile.php" class="btn btn-outline-primary">Profile</a>
+            <a href="my_academics.php" class="btn btn-primary">My Academics</a>
+            <a href="my_colleges.php" class="btn btn-outline-primary"
               >My Colleges</a
             >
           </div>
@@ -96,61 +161,80 @@
         <div class="col-md-8">
           <div class="card p-4">
             <h2 class="mb-3">Academic Information</h2>
-            <form>
+            
+            <?php if (!empty($error)): ?>
+              <div class="alert alert-danger"><?php echo $error; ?></div>
+            <?php endif; ?>
+            
+            <?php if (!empty($success)): ?>
+              <div class="alert alert-success"><?php echo $success; ?></div>
+            <?php endif; ?>
+            
+            <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
               <div class="mb-3">
                 <label for="gpa" class="form-label">Grade Point Average</label>
                 <input
                   id="gpa"
+                  name="gpa"
                   type="number"
                   class="form-control"
                   step="0.01"
                   min="0.00"
                   max="5.30"
+                  value="<?php echo htmlspecialchars($academicData['gpa'] ?? ''); ?>"
                   aria-label="Grade Point Average"
                 />
               </div>
 
               <div class="mb-3">
-                <label class="form-label" for="class-rank">Class Rank</label>
+                <label class="form-label" for="class_rank">Class Rank</label>
                 <input
                   type="number"
                   class="form-control"
-                  id="class-rank"
+                  id="class_rank"
+                  name="class_rank"
                   step="1"
+                  value="<?php echo htmlspecialchars($academicData['class_rank'] ?? ''); ?>"
                 />
               </div>
 
               <div class="mb-3">
-                <label class="form-label" for="class-size">Class Size</label>
+                <label class="form-label" for="class_size">Class Size</label>
                 <input
                   type="number"
-                  id="class-size"
+                  id="class_size"
+                  name="class_size"
                   class="form-control"
                   step="1"
+                  value="<?php echo htmlspecialchars($academicData['class_size'] ?? ''); ?>"
                 />
               </div>
 
               <div class="mb-3">
-                <label class="form-label" for="sat-score">SAT Score</label>
+                <label class="form-label" for="sat_score">SAT Score</label>
                 <input
-                  id="sat-score"
+                  id="sat_score"
+                  name="sat_score"
                   type="number"
                   class="form-control"
                   step="10"
                   min="0"
                   max="1600"
+                  value="<?php echo htmlspecialchars($academicData['sat_score'] ?? ''); ?>"
                 />
               </div>
 
               <div class="mb-3">
-                <label class="form-label" for="act-score">ACT Score</label>
+                <label class="form-label" for="act_score">ACT Score</label>
                 <input
-                  id="act-score"
+                  id="act_score"
+                  name="act_score"
                   type="number"
                   class="form-control"
                   step="1"
                   min="0"
                   max="36"
+                  value="<?php echo htmlspecialchars($academicData['act_score'] ?? ''); ?>"
                 />
               </div>
 

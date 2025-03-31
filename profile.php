@@ -1,3 +1,42 @@
+<?php
+require_once 'includes/session.php';
+require_once 'src/Models/User.php';
+
+// Redirect if not logged in
+if (!Session::isLoggedIn()) {
+    header('Location: login.php');
+    exit;
+}
+
+$error = '';
+$success = '';
+$user = new User();
+$userData = $user->getUserById(Session::get('user_id'));
+
+// Process form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $firstName = $_POST['first_name'] ?? '';
+    $lastName = $_POST['last_name'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $phone = $_POST['phone_number'] ?? '';
+    $state = $_POST['state_residence'] ?? '';
+    
+    if (empty($firstName) || empty($lastName) || empty($email)) {
+        $error = 'Please fill in all required fields';
+    } else {
+        $result = $user->updateProfile(Session::get('user_id'), $firstName, $lastName, $email, $phone, $state);
+        
+        if ($result) {
+            $success = 'Profile updated successfully!';
+            // Refresh user data after update
+            $userData = $user->getUserById(Session::get('user_id'));
+        } else {
+            $error = 'Failed to update profile. Please try again.';
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -70,7 +109,11 @@
             </ul>
           </div>
           <div class="right-section">
-            <a class="btn btn-primary" href="login.html">Log In</a>
+            <?php if (Session::isLoggedIn()): ?>
+              <a class="btn btn-danger" href="logout.php">Log Out</a>
+            <?php else: ?>
+              <a class="btn btn-primary" href="login.php">Log In</a>
+            <?php endif; ?>
           </div>
         </div>
       </nav>
@@ -82,11 +125,11 @@
         <!-- Left Side (Navigation) -->
         <div class="col-md-4">
           <div class="d-grid gap-3">
-            <a href="profile.html" class="btn btn-primary">Profile</a>
-            <a href="my_academics.html" class="btn btn-outline-primary"
+            <a href="profile.php" class="btn btn-primary">Profile</a>
+            <a href="my_academics.php" class="btn btn-outline-primary"
               >My Academics</a
             >
-            <a href="my_colleges.html" class="btn btn-outline-primary"
+            <a href="my_colleges.php" class="btn btn-outline-primary"
               >My Colleges</a
             >
           </div>
@@ -96,26 +139,39 @@
         <div class="col-md-8">
           <div class="card p-4">
             <h2 class="mb-3">Profile Information</h2>
-            <form>
+            
+            <?php if (!empty($error)): ?>
+              <div class="alert alert-danger"><?php echo $error; ?></div>
+            <?php endif; ?>
+            
+            <?php if (!empty($success)): ?>
+              <div class="alert alert-success"><?php echo $success; ?></div>
+            <?php endif; ?>
+            
+            <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
               <div class="mb-3">
-                <label for="first-name" class="form-label">First Name</label>
+                <label for="first_name" class="form-label">First Name</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="first-name"
-                  value=""
+                  id="first_name"
+                  name="first_name"
+                  value="<?php echo htmlspecialchars($userData['first_name'] ?? ''); ?>"
                   aria-label="First Name"
+                  required
                 />
               </div>
 
               <div class="mb-3">
-                <label for="last-name" class="form-label">Last Name</label>
+                <label for="last_name" class="form-label">Last Name</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="last-name"
-                  value=""
+                  id="last_name"
+                  name="last_name"
+                  value="<?php echo htmlspecialchars($userData['last_name'] ?? ''); ?>"
                   aria-label="Last Name"
+                  required
                 />
               </div>
 
@@ -125,33 +181,38 @@
                   type="email"
                   class="form-control"
                   id="email"
-                  value=""
+                  name="email"
+                  value="<?php echo htmlspecialchars($userData['email'] ?? ''); ?>"
                   aria-label="Email"
+                  required
                 />
               </div>
 
               <div class="mb-3">
-                <label for="phone-number" class="form-label"
+                <label for="phone_number" class="form-label"
                   >Phone Number</label
                 >
                 <input
-                  type="text"
+                  type="tel"
                   class="form-control"
-                  id="phone-number"
-                  value=""
+                  id="phone_number"
+                  name="phone_number"
+                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                  value="<?php echo htmlspecialchars($userData['phone_number'] ?? ''); ?>"
                   aria-label="Phone Number"
                 />
               </div>
 
               <div class="mb-3">
-                <label for="state-residence" class="form-label"
+                <label for="state_residence" class="form-label"
                   >State Residence</label
                 >
                 <input
                   type="text"
                   class="form-control"
-                  id="state-residence"
-                  value=""
+                  id="state_residence"
+                  name="state_residence"
+                  value="<?php echo htmlspecialchars($userData['state_residence'] ?? ''); ?>"
                   aria-label="State Residence"
                 />
               </div>

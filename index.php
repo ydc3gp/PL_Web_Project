@@ -38,7 +38,7 @@ require_once 'includes/session.php';
     <!-- Navbar  -->
     <header>
       <!-- Working URL  -->
-      <!-- https://cs4640.cs.virginia.edu/yrg9mn/sprint2/index.html -->
+      <!-- https://cs4640.cs.virginia.edu/ydc3gp/PL_Web_Project/index.php -->
       <nav class="custom-navbar">
         <div class="nav-container">
           <div class="left-section">
@@ -101,7 +101,7 @@ require_once 'includes/session.php';
             </p>
             <a
               class="btn btn-primary rounded-4 view-colleges-btn"
-              href="search.html"
+              href="search.php"
               >View Colleges</a
             >
           </div>

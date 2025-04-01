@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>UniMatch - Edit My Colleges Information</title>
-    <meta name="author" content="Andrew Abbott, navbar by Chris Dai" />
+    <meta name="author" content="Andrew Abbott" />
     <meta name="description" content="Find your university match." />
     <meta
       name="keywords"
@@ -39,7 +39,7 @@
         <div class="nav-container">
           <div class="left-section">
             <span class="logo">
-              <a href="index.html">
+              <a href="index.php">
                 <img src="assets/logo.png" alt="UniMatch Logo" />
                 <span class="logo-text">
                   <span id="logo-text-uni">Uni</span>Match
@@ -56,24 +56,24 @@
 
             <ul class="nav-links" id="nav-links">
               <li class="">
-                <a class="hover-underline-animation center" href="search.html"
+                <a class="hover-underline-animation center" href="search.php"
                   >Search Colleges</a
                 >
               </li>
               <li class="">
-                <a class="hover-underline-animation center" href="about.html"
+                <a class="hover-underline-animation center" href="about.php"
                   >About</a
                 >
               </li>
               <li>
-                <a class="hover-underline-animation center" href="profile.html"
+                <a class="hover-underline-animation center" href="profile.php"
                   >Edit Profile</a
                 >
               </li>
             </ul>
           </div>
           <div class="right-section">
-            <a class="btn btn-primary" href="login.html">Log In</a>
+            <a class="btn btn-primary" href="login.php">Log In</a>
           </div>
         </div>
       </nav>
@@ -85,11 +85,11 @@
         <!-- Left Side (Navigation) -->
         <div class="col-md-4">
           <div class="d-grid gap-3">
-            <a href="profile.html" class="btn btn-outline-primary">Profile</a>
-            <a href="my_academics.html" class="btn btn-outline-primary"
+            <a href="profile.php" class="btn btn-outline-primary">Profile</a>
+            <a href="my_academics.php" class="btn btn-outline-primary"
               >My Academics</a
             >
-            <a href="my_colleges.html" class="btn btn-primary">My Colleges</a>
+            <a href="my_colleges.php" class="btn btn-primary">My Colleges</a>
           </div>
         </div>
 

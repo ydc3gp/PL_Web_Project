@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="nav-container">
           <div class="left-section">
             <span class="logo">
-              <a href="index.html">
+              <a href="index.php">
                 <img src="assets/logo.png" alt="UniMatch Logo" />
                 <span class="logo-text">
                   <span id="logo-text-uni">Uni</span>Match
@@ -94,15 +94,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <ul class="nav-links">
               <li>
-                <a class="hover-underline-animation" href="search.html"
+                <a class="hover-underline-animation" href="search.php"
                   >Search Colleges</a
                 >
               </li>
               <li>
-                <a class="hover-underline-animation" href="about.html">About</a>
+                <a class="hover-underline-animation" href="about.php">About</a>
               </li>
               <li>
-                <a class="hover-underline-animation center" href="profile.html"
+                <a class="hover-underline-animation center" href="profile.php"
                   >Edit Profile</a
                 >
               </li>

@@ -1,6 +1,7 @@
 <?php
 // Create this as setup_db.php and run it once to set up your tables
 
+// Author - Chris Dai
 require_once 'includes/db.php';
 
 $db = Database::getInstance();

@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>UniMatch - Edit My Academics Information</title>
-    <meta name="author" content="Andrew Abbott, navbar by Chris Dai" />
+    <meta name="author" content="Andrew Abbott" />
     <meta name="description" content="Find your university match." />
     <meta
       name="keywords"

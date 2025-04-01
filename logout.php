@@ -1,6 +1,7 @@
+
 <?php
 require_once 'includes/session.php';
-
+// Author Andrew Abbott
 // Destroy the session
 Session::destroy();
 

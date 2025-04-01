@@ -209,7 +209,7 @@ sort($schoolTypes);
                               <?php echo htmlspecialchars($college['city'] . ', ' . $college['state'] . ' '); ?>
                           </h6>
                           <p class="card-text">
-                                <strong>Type:</strong> <?php echo isset($college['is_public']) ? (boolval($college['is_public']) ? 'Public' : 'Private') : 'N/A'; ?><br>
+                              <strong>Type:</strong> <?php echo boolval($college['is_public']) ? 'Public' : 'Private'; ?><br>
                               <?php if (!empty($college['tuition'])): ?>
                                   <strong>Tuition:</strong> $<?php echo number_format((float)$college['tuition']); ?><br>
                               <?php endif; ?>

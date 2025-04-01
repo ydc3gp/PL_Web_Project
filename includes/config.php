@@ -14,7 +14,7 @@
 class Config {
     public static $db = [
         "host" => "localhost",
-        "port" => 5432,
+        "port" => 15432,
         "user" => "localuser",
         "pass" => "cs4640LocalUser!",
         "database" => "example"

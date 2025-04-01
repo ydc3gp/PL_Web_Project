@@ -36,38 +36,6 @@ class College {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
-    public function csvToJson($filePath) {
-        if (!file_exists($filePath)) {
-            return false;
-        }
-        
-        $jsonArray = [];
-        
-        if (($handle = fopen($filePath, "r")) !== FALSE) {
-            // Read header row
-            $header = fgetcsv($handle, 0, ',', '"', '');
-            
-            // Read data rows
-            while (($data = fgetcsv($handle, 0, ',', '"', '')) !== FALSE) {
-                if (count($data) < 6) {
-                    continue; // Skip rows with insufficient columns
-                }
-                
-                // Create associative array using headers as keys
-                $row = [];
-                foreach ($header as $index => $fieldName) {
-                    $row[$fieldName] = isset($data[$index]) ? $data[$index] : null;
-                }
-                
-                $jsonArray[] = $row;
-            }
-            
-            fclose($handle);
-        }
-        
-        return json_encode($jsonArray);
-    }
-    
     public function importFromJson($jsonData) {
         $colleges = json_decode($jsonData, true);
         
@@ -87,24 +55,37 @@ class College {
             
             // Prepare insert statement
             $sql = "INSERT INTO colleges (
-                name, city, zipcode, ranking_display_rank, 
-                sat_avg, test_avg_range_2
-            ) VALUES (?, ?, ?, ?, ?, ?)";
+                name, state, city, is_public, ranking_display_rank, 
+                tuition, acceptance_rate, hs_gpa_avg, enrollment, 
+                test_avg_range_1, test_avg_range_2
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
             $stmt = $this->db->getConnection()->prepare($sql);
             
             // Insert data
             $rowCount = 0;
             foreach ($colleges as $college) {
-                $rankingDisplayRank = str_replace('#', '', $college['ranking.displayRank']);
+                // Skip header row if it exists
+                if ($rowCount == 0 && isset($college[0]) && $college[0] == "institution.displayName") {
+                    $rowCount++;
+                    continue;
+                }
+                
+                // Process ranking to remove '#' prefix if needed
+                $rankingDisplayRank = isset($college[4]) ? str_replace('#', '', $college[4]) : '';
                 
                 $params = [
-                    $college['institution.displayName'],
-                    $college['institution.city'],
-                    $college['institution.zip'],
-                    $rankingDisplayRank,
-                    $college['searchData.satAvg.rawValue'],
-                    $college['searchData.testAvgs.displayValue.1.value']
+                    $college[0] ?? '',  // name (institution.displayName)
+                    $college[1] ?? '',  // state (institution.state)
+                    $college[2] ?? '',  // city (institution.city)
+                    $college[3] ?? '',  // is_public (institution.isPublic)
+                    $rankingDisplayRank, // ranking_display_rank (ranking.displayRank)
+                    $college[5] ?? '',  // tuition (searchData.tuition.rawValue)
+                    $college[6] ?? '',  // acceptance_rate (searchData.acceptanceRate.rawValue)
+                    $college[7] ?? '',  // hs_gpa_avg (searchData.hsGpaAvg.rawValue)
+                    $college[8] ?? '',  // enrollment (searchData.enrollment.rawValue)
+                    $college[9] ?? '',  // test_avg_range_1 (searchData.testAvgs.displayValue.0.value)
+                    $college[10] ?? ''  // test_avg_range_2 (searchData.testAvgs.displayValue.1.value)
                 ];
                 
                 $stmt->execute($params);
@@ -121,89 +102,48 @@ class College {
     }
     
     public function importFromCSV($filePath) {
-        // Check if file exists
+        // Convert CSV to JSON
+        $jsonData = $this->csvToJson($filePath);
+        if (!$jsonData) {
+            return ['success' => false, 'message' => 'Failed to convert CSV to JSON'];
+        }
+        
+        // Use the importFromJson method to import the data
+        return $this->importFromJson($jsonData);
+    }
+    
+    public function csvToJson($filePath) {
         if (!file_exists($filePath)) {
-            return ['success' => false, 'message' => 'CSV file not found'];
+            return false;
         }
         
-        // Create colleges table if it doesn't exist
-        $this->createCollegesTable();
+        // Read file contents
+        $csv = file_get_contents($filePath);
         
-        // Open the CSV file
-        if (($handle = fopen($filePath, "r")) !== FALSE) {
-            // Read header row with escape parameter to avoid deprecation warnings
-            $header = fgetcsv($handle, 0, ',', '"', '');
-            
-            // Begin transaction
-            $this->db->getConnection()->beginTransaction();
-            
-            try {
-                // Clear existing data
-                $this->db->executeQuery("DELETE FROM colleges");
-                
-                // Prepare insert statement for the new CSV format
-                $sql = "INSERT INTO colleges (
-                    name, city, zip, ranking_display_rank, 
-                    sat_avg, test_avg_range_2
-                ) VALUES (?, ?, ?, ?, ?, ?)";
-                
-                $stmt = $this->db->getConnection()->prepare($sql);
-                
-                // Read data rows with escape parameter
-                $rowCount = 0;
-                while (($data = fgetcsv($handle, 0, ',', '"', '')) !== FALSE) {
-                    if (count($data) < 6) {
-                        continue; // Skip rows that don't have enough columns
-                    }
-                    
-                    // Process ranking_display_rank to remove '#' prefix
-                    $rankingDisplayRank = str_replace('#', '', $data[3]);
-                    
-                    // Map CSV columns to database fields
-                    $params = [
-                        $data[0],  // name (institution.displayName)
-                        $data[1],  // city (institution.city)
-                        $data[2],  // zip (institution.zip)
-                        $rankingDisplayRank, // ranking_display_rank (ranking.displayRank)
-                        $data[4],  // sat_avg (searchData.satAvg.rawValue)
-                        $data[5]   // test_avg_range_2 (searchData.testAvgs.displayValue.1.value)
-                    ];
-                    
-                    $stmt->execute($params);
-                    $rowCount++;
-                }
-                
-                // Commit transaction
-                $this->db->getConnection()->commit();
-                
-                fclose($handle);
-                return ['success' => true, 'message' => "Imported $rowCount colleges successfully"];
-            } catch (Exception $e) {
-                // Rollback transaction on error
-                $this->db->getConnection()->rollBack();
-                fclose($handle);
-                return ['success' => false, 'message' => 'Error importing data: ' . $e->getMessage()];
-            }
-        } else {
-            return ['success' => false, 'message' => 'Could not open CSV file'];
-        }
+        // Convert to array
+        $array = array_map(function($line) {
+            return str_getcsv($line, ",", '"', "");
+        }, explode("\n", $csv));
+        
+        // Return JSON encoded array
+        return json_encode($array);
     }
     
     private function createCollegesTable() {
         $sql = "CREATE TABLE IF NOT EXISTS colleges (
             id SERIAL PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
+            state VARCHAR(2),
             city VARCHAR(100),
-            zip VARCHAR(10),
+            is_public VARCHAR(10),
             ranking_display_rank VARCHAR(20),
-            sat_avg VARCHAR(10),
+            tuition VARCHAR(20),
+            acceptance_rate VARCHAR(20),
+            hs_gpa_avg VARCHAR(10),
+            enrollment VARCHAR(20),
+            test_avg_range_1 VARCHAR(20),
             test_avg_range_2 VARCHAR(20),
-            state VARCHAR(2) DEFAULT NULL,
-            school_type VARCHAR(100) DEFAULT NULL,
-            ranking_sort_rank INTEGER DEFAULT NULL,
-            tuition VARCHAR(20) DEFAULT NULL,
-            hs_gpa_avg VARCHAR(10) DEFAULT NULL,
-            enrollment VARCHAR(20) DEFAULT NULL
+            zip VARCHAR(10) DEFAULT NULL
         )";
         
         $this->db->executeQuery($sql);

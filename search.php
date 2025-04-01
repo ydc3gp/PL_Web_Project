@@ -205,10 +205,11 @@ sort($schoolTypes);
                         <div class="card-body">
                           <h5 class="card-title"><?php echo htmlspecialchars($college['name']); ?></h5>
                           <h6 class="card-subtitle mb-2 text-muted">
-                              <?php echo htmlspecialchars($college['city'] . ', ' . $college['state'] . ' ' . $college['zipcode']); ?>
+                              <!-- <?php echo htmlspecialchars($college['city'] . ', ' . $college['state'] . ' ' . $college['zipcode']); ?> -->
+                              <?php echo htmlspecialchars($college['city'] . ', ' . $college['state'] . ' '); ?>
                           </h6>
                           <p class="card-text">
-                              <strong>Type:</strong> <?php echo $college['is_public'] ? 'Public' : 'Private'; ?><br>
+                              <strong>Type:</strong> <?php echo boolval($college['is_public']) ? 'Public' : 'Private'; ?><br>
                               <?php if (!empty($college['tuition'])): ?>
                                   <strong>Tuition:</strong> $<?php echo number_format((float)$college['tuition']); ?><br>
                               <?php endif; ?>

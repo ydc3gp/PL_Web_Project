@@ -1,6 +1,6 @@
 
 <?php
-require_once 'includes/session.php';
+require_once __DIR__ . '/../../private/includes/session.php';
 // Author Andrew Abbott
 // Destroy the session
 Session::destroy();

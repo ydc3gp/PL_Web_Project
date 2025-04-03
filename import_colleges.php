@@ -1,6 +1,6 @@
 <?php
-require_once 'includes/db.php';
-require_once 'src/Models/College.php';
+require_once __DIR__ . '/../../private/includes/db.php';
+require_once __DIR__ . '/../../private/Models/College.php';
 
 // Path to CSV file
 $csvFile = 'new.csv';

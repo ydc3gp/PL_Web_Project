@@ -1,6 +1,6 @@
 <?php
-require_once 'includes/session.php';
-require_once 'src/Models/Academics.php';
+require_once __DIR__ . '/../../private/includes/session.php';
+require_once __DIR__ . '/../../private/Models/Academics.php';
 
 // Redirect if not logged in
 if (!Session::isLoggedIn()) {

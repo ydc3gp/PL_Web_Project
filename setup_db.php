@@ -2,7 +2,7 @@
 // Create this as setup_db.php and run it once to set up your tables
 
 // Author - Chris Dai
-require_once 'includes/db.php';
+require_once __DIR__ . '/../../private/includes/db.php';
 
 $db = Database::getInstance();
 $conn = $db->getConnection();

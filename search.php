@@ -1,6 +1,6 @@
 <?php
-require_once 'includes/session.php';
-require_once 'src/Models/College.php';
+require_once __DIR__ . '/../../private/includes/session.php';
+require_once __DIR__ . '/../../private/Models/College.php';
 
 // Initialize filters
 $filters = [];

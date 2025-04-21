@@ -44,7 +44,7 @@ require_once 'includes/session.php';
         <div class="nav-container">
           <div class="left-section">
             <span class="logo">
-              <a href="index.html">
+              <a href="index.php">
                 <img src="assets/logo.png" alt="UniMatch Logo" />
                 <span class="logo-text">
                   <span id="logo-text-uni">Uni</span>Match
@@ -61,17 +61,17 @@ require_once 'includes/session.php';
 
             <ul class="nav-links" id="nav-links">
               <li class="">
-                <a class="hover-underline-animation center" href="search.html"
+                <a class="hover-underline-animation center" href="search.php"
                   >Search Colleges</a
                 >
               </li>
               <li class="">
-                <a class="hover-underline-animation center" href="about.html"
+                <a class="hover-underline-animation center" href="about.php"
                   >About</a
                 >
               </li>
               <li>
-                <a class="hover-underline-animation center" href="profile.html"
+                <a class="hover-underline-animation center" href="profile.php"
                   >Edit Profile</a
                 >
               </li>

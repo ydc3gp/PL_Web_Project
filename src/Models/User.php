@@ -12,7 +12,7 @@ class User {
         // Hash the password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         
-        $sql = "INSERT INTO users (email, password, first_name, last_name, phone_number, state_residence) 
+        $sql = "INSERT INTO sprint3_users (email, password, first_name, last_name, phone_number, state_residence) 
                 VALUES (?, ?, ?, ?, ?, ?) RETURNING id";
         
         $stmt = $this->db->executeQuery($sql, [$email, $hashedPassword, $firstName, $lastName, $phone, $state]);
@@ -21,7 +21,7 @@ class User {
     }
     
     public function login($email, $password) {
-        $sql = "SELECT id, email, password, first_name, last_name FROM users WHERE email = ?";
+        $sql = "SELECT id, email, password, first_name, last_name FROM sprint3_users WHERE email = ?";
         $stmt = $this->db->executeQuery($sql, [$email]);
         
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -34,14 +34,14 @@ class User {
     }
     
     public function getUserById($id) {
-        $sql = "SELECT id, email, first_name, last_name, phone_number, state_residence FROM users WHERE id = ?";
+        $sql = "SELECT id, email, first_name, last_name, phone_number, state_residence FROM sprint3_users WHERE id = ?";
         $stmt = $this->db->executeQuery($sql, [$id]);
         
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     
     public function updateProfile($id, $firstName, $lastName, $email, $phone, $state) {
-        $sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, phone_number = ?, state_residence = ? 
+        $sql = "UPDATE sprint3_users SET first_name = ?, last_name = ?, email = ?, phone_number = ?, state_residence = ? 
                 WHERE id = ?";
         
         $stmt = $this->db->executeQuery($sql, [$firstName, $lastName, $email, $phone, $state, $id]);

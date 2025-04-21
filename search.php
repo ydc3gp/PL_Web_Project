@@ -150,103 +150,97 @@ sort($schoolTypes);
     </header>
 
     <div class="container mt-5">
-        <h1 class="mb-4">Search Colleges</h1>
-        
-        <!-- Filter Section -->
-        <div class="filter-section">
-            <form method="GET" action="search.php" class="row g-3">
-                <div class="col-md-3">
-                    <label for="state" class="form-label">State</label>
-                    <select class="form-select" id="state" name="state">
-                        <option value="">All States</option>
-                        <?php foreach ($states as $state): ?>
-                            <option value="<?php echo htmlspecialchars($state); ?>" <?php echo (isset($filters['state']) && $filters['state'] === $state) ? 'selected' : ''; ?>>
-                                <?php echo htmlspecialchars($state); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <label for="type" class="form-label">School Type</label>
-                    <select class="form-select" id="type" name="type">
-                        <option value="">All Types</option>
-                        <?php foreach ($schoolTypes as $type): ?>
-                            <option value="<?php echo htmlspecialchars($type); ?>" <?php echo (isset($filters['type']) && $filters['type'] === $type) ? 'selected' : ''; ?>>
-                                <?php echo htmlspecialchars(str_replace('-', ' ', ucwords($type))); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <label for="max_tuition" class="form-label">Max Tuition ($)</label>
-                    <input type="number" class="form-control" id="max_tuition" name="max_tuition" value="<?php echo htmlspecialchars($filters['max_tuition'] ?? ''); ?>">
-                </div>
-                <div class="col-md-3 d-flex align-items-end">
-                    <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
-                </div>
-            </form>
-        </div>
-        
-        <!-- Results Count -->
-        <p class="mb-4">Found <?php echo count($colleges); ?> colleges matching your criteria.</p>
-        
-        <!-- Colleges Grid -->
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
-            <?php foreach ($colleges as $college): ?>
-                <div class="col">
-                    <div class="card college-card h-100">
-                        <?php if (!empty($college['ranking_display_rank']) && $college['ranking_display_rank'] !== '-1'): ?>
-                            <div class="college-rank">
-                                #<?php echo htmlspecialchars($college['ranking_display_rank']); ?>
-                            </div>
-                        <?php endif; ?>
+    <h1>Search Colleges</h1>
 
-
-                        <div class="card-body">
-                          <h5 class="card-title"><?php echo htmlspecialchars($college['name']); ?></h5>
-                          <h6 class="card-subtitle mb-2 text-muted">
-                              <!-- <?php echo htmlspecialchars($college['city'] . ', ' . $college['state'] . ' ' . $college['zipcode']); ?> -->
-                              <?php echo htmlspecialchars($college['city'] . ', ' . $college['state'] . ' '); ?>
-                          </h6>
-                          <p class="card-text">
-                              <strong>Type:</strong> <?php echo boolval($college['is_public']) ? 'Public' : 'Private'; ?><br>
-                              <?php if (!empty($college['tuition'])): ?>
-                                  <strong>Tuition:</strong> $<?php echo number_format((float)$college['tuition']); ?><br>
-                              <?php endif; ?>
-                              <?php if (!empty($college['cost_after_aid'])): ?>
-                                  <strong>Cost After Aid:</strong> $<?php echo number_format((float)$college['cost_after_aid']); ?><br>
-                              <?php endif; ?>
-                              <?php if (!empty($college['acceptance_rate'])): ?>
-                                  <strong>Acceptance Rate:</strong> <?php echo htmlspecialchars($college['acceptance_rate']); ?>%<br>
-                              <?php endif; ?>
-                              <?php if (!empty($college['enrollment'])): ?>
-                                  <strong>Enrollment:</strong> <?php echo number_format((float)$college['enrollment']); ?> students<br>
-                              <?php endif; ?>
-                              <?php if (!empty($college['hs_gpa_avg'])): ?>
-                                  <strong>Avg. GPA:</strong> <?php echo htmlspecialchars($college['hs_gpa_avg']); ?><br>
-                              <?php endif; ?>
-                              <?php if (!empty($college['sat_avg'])): ?>
-                                  <strong>Avg. SAT:</strong> <?php echo htmlspecialchars($college['sat_avg']); ?><br>
-                              <?php endif; ?>
-                          </p>
-                          <?php if (!empty($college['test_avg_range_1']) && $college['test_avg_range_1'] !== 'N/A'): ?>
-                              <p class="card-text">
-                                  <strong>SAT Range:</strong> <?php echo htmlspecialchars($college['test_avg_range_1']); ?>
-                              </p>
-                          <?php endif; ?>
-                          <?php if (!empty($college['test_avg_range_2']) && $college['test_avg_range_2'] !== 'N/A'): ?>
-                              <p class="card-text">
-                                  <strong>ACT Range:</strong> <?php echo htmlspecialchars($college['test_avg_range_2']); ?>
-                              </p>
-                          <?php endif; ?>
-                      </div>
-
-                    </div>
-                </div>
+        <form method="get" class="row g-3 mb-4">
+        <div class="col-md-3">
+            <label class="form-label">State</label>
+            <select name="state" class="form-select">
+            <option value="">All States</option>
+            <?php foreach ($states as $state): ?>
+                <option value="<?= htmlspecialchars($state) ?>" <?= ($_GET['state'] ?? '') === $state ? 'selected' : '' ?>>
+                <?= htmlspecialchars($state) ?>
+                </option>
             <?php endforeach; ?>
+            </select>
         </div>
-    </div>
+        <div class="col-md-3">
+            <label class="form-label">Type</label>
+            <select name="type" class="form-select">
+            <option value="">All Types</option>
+            <?php foreach ($schoolTypes as $type): ?>
+                <option value="<?= htmlspecialchars($type) ?>" <?= ($_GET['type'] ?? '') === $type ? 'selected' : '' ?>>
+                <?= htmlspecialchars($type) ?>
+                </option>
+            <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Max Tuition</label>
+            <input type="number" name="max_tuition" class="form-control" value="<?= htmlspecialchars($_GET['max_tuition'] ?? '') ?>">
+        </div>
+        <div class="col-md-3 align-self-end">
+            <button type="submit" class="btn btn-primary w-100">Filter</button>
+        </div>
+        </form>
+
+        <div>
+        <?php if (empty($colleges)): ?>
+            <p>No colleges found.</p>
+        <?php else: ?>
+            <?php foreach ($colleges as $c): ?>
+            <div class="card mb-3">
+                <div class="card-body">
+                <h5 class="card-title"><?= htmlspecialchars($c['name']) ?></h5>
+                <p class="card-text">State: <?= htmlspecialchars($c['state']) ?></p>
+                <p class="card-text">Type: <?= htmlspecialchars($c['type']) ?></p>
+                <p class="card-text">Tuition: $<?= number_format($c['tuition']) ?></p>
+
+                <?php if (Session::isLoggedIn()): ?>
+                    <button class="btn btn-outline-primary favorite-button"
+                            data-college-name="<?= htmlspecialchars($c['name']) ?>"
+                            data-location="<?= htmlspecialchars($c['state']) ?>">
+                    🤍 Favorite
+                    </button>
+                    <div class="favorite-status text-success mt-2" style="display: none;"></div>
+                <?php else: ?>
+                    <p><em>Log in to save favorites.</em></p>
+                <?php endif; ?>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
 
     <script src="hamburger.js"></script>
+    <script>
+    document.querySelectorAll('.favorite-button').forEach(button => {
+      button.addEventListener('click', function () {
+        const name = this.dataset.collegeName;
+        const location = this.dataset.location;
+        const statusDiv = this.nextElementSibling;
+
+        fetch('favorite_college.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: `college_name=${encodeURIComponent(name)}&location=${encodeURIComponent(location)}`
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            this.classList.remove('btn-outline-primary');
+            this.classList.add('btn-success');
+            this.innerText = '❤️ Favorited';
+            statusDiv.textContent = data.message;
+            statusDiv.style.display = 'block';
+          } else {
+            statusDiv.textContent = data.message;
+            statusDiv.classList.remove('text-success');
+            statusDiv.classList.add('text-danger');
+            statusDiv.style.display = 'block';
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>

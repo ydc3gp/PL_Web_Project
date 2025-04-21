@@ -9,14 +9,34 @@ class College {
     }
     
     public function getAllColleges() {
-        $sql = "SELECT * FROM colleges ORDER BY ranking_display_rank ASC";
+        $sql = "SELECT * FROM sprint3_colleges ORDER BY ranking_display_rank ASC";
         $stmt = $this->db->executeQuery($sql);
         
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function removeCollegeFromSaved($userId, $collegeId) {
+        $query = "DELETE FROM saved_colleges WHERE user_id = ? AND id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ii", $userId, $collegeId);
+        return $stmt->execute();
+    }
+
+    public function getSavedCollegesByUserId($userId) {
+      
+        $query = "SELECT * FROM colleges WHERE user_id = ?";
+
+    
+        // Prepare the statement
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC); 
+    }
+   
     
     public function getCollegesByFilter($filters = []) {
-        $sql = "SELECT * FROM colleges WHERE 1=1";
+        $sql = "SELECT * FROM sprint3_colleges WHERE 1=1";
         $params = [];
         
         if (!empty($filters['state'])) {
@@ -51,10 +71,10 @@ class College {
         
         try {
             // Clear existing data
-            $this->db->executeQuery("DELETE FROM colleges");
+            $this->db->executeQuery("DELETE FROM sprint3_colleges");
             
             // Prepare insert statement
-            $sql = "INSERT INTO colleges (
+            $sql = "INSERT INTO sprint3_colleges (
                 name, state, city, is_public, ranking_display_rank, 
                 tuition, acceptance_rate, hs_gpa_avg, enrollment, 
                 test_avg_range_1, test_avg_range_2
@@ -78,7 +98,7 @@ class College {
                     $college[0] ?? '',  // name (institution.displayName)
                     $college[1] ?? '',  // state (institution.state)
                     $college[2] ?? '',  // city (institution.city)
-                    $college[3] ?? '',  // is_public (institution.isPublic)
+                    $college[3] ?? '',  // is_public (institution.institutionalControl)
                     $rankingDisplayRank, // ranking_display_rank (ranking.displayRank)
                     $college[5] ?? '',  // tuition (searchData.tuition.rawValue)
                     $college[6] ?? '',  // acceptance_rate (searchData.acceptanceRate.rawValue)
@@ -130,12 +150,12 @@ class College {
     }
     
     private function createCollegesTable() {
-        $sql = "CREATE TABLE IF NOT EXISTS colleges (
+        $sql = "CREATE TABLE IF NOT EXISTS sprint3_colleges (
             id SERIAL PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
             state VARCHAR(2),
             city VARCHAR(100),
-            is_public VARCHAR(10),
+            institutionalControl VARCHAR(10),
             ranking_display_rank VARCHAR(20),
             tuition VARCHAR(20),
             acceptance_rate VARCHAR(20),

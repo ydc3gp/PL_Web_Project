@@ -9,7 +9,7 @@ $conn = $db->getConnection();
 
 // Create users table
 $users_table = "
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE IF NOT EXISTS sprint3_users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
@@ -22,9 +22,9 @@ CREATE TABLE IF NOT EXISTS users (
 
 // Create academics table
 $academics_table = "
-CREATE TABLE IF NOT EXISTS academics (
+CREATE TABLE IF NOT EXISTS sprint3_academics (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES users(id),
+    user_id INTEGER REFERENCES sprint3_users(id),
     gpa NUMERIC(3,2),
     class_rank INTEGER,
     class_size INTEGER,
@@ -35,9 +35,9 @@ CREATE TABLE IF NOT EXISTS academics (
 
 // Create saved_colleges table
 $colleges_table = "
-CREATE TABLE IF NOT EXISTS saved_colleges (
+CREATE TABLE IF NOT EXISTS sprint3_saved_colleges (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES users(id),
+    user_id INTEGER REFERENCES sprint3_users(id),
     college_name VARCHAR(255) NOT NULL,
     location VARCHAR(255),
     added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

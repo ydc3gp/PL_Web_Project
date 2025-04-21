@@ -9,14 +9,14 @@ class Academics {
     }
     
     public function getAcademicsByUserId($userId) {
-        $sql = "SELECT * FROM academics WHERE user_id = ?";
+        $sql = "SELECT * FROM sprint3_academics WHERE user_id = ?";
         $stmt = $this->db->executeQuery($sql, [$userId]);
         
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     
     public function createAcademics($userId, $gpa, $classRank, $classSize, $satScore, $actScore) {
-        $sql = "INSERT INTO academics (user_id, gpa, class_rank, class_size, sat_score, act_score) 
+        $sql = "INSERT INTO sprint3_academics (user_id, gpa, class_rank, class_size, sat_score, act_score) 
                 VALUES (?, ?, ?, ?, ?, ?)";
         
         $stmt = $this->db->executeQuery($sql, [$userId, $gpa, $classRank, $classSize, $satScore, $actScore]);
@@ -30,7 +30,7 @@ class Academics {
         
         if ($existingRecord) {
             // Update existing record
-            $sql = "UPDATE academics SET gpa = ?, class_rank = ?, class_size = ?, 
+            $sql = "UPDATE sprint3_academics SET gpa = ?, class_rank = ?, class_size = ?, 
                     sat_score = ?, act_score = ?, updated_at = CURRENT_TIMESTAMP 
                     WHERE user_id = ?";
             

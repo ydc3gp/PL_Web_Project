@@ -74,11 +74,13 @@ class College {
             $this->db->executeQuery("DELETE FROM sprint3_colleges");
             
             // Prepare insert statement
-            $sql = "INSERT INTO sprint3_colleges (
-                name, state, city, is_public, ranking_display_rank, 
-                tuition, acceptance_rate, hs_gpa_avg, enrollment, 
+
+            $sql = "INSERT INTO colleges (
+                name, state, city, zip, is_public, ranking_display_rank, acceptance_rate, tuition, 
+                hs_gpa_avg, enrollment, 
+
                 test_avg_range_1, test_avg_range_2
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
             $stmt = $this->db->getConnection()->prepare($sql);
             
@@ -92,20 +94,22 @@ class College {
                 }
                 
                 // Process ranking to remove '#' prefix if needed
-                $rankingDisplayRank = isset($college[4]) ? str_replace('#', '', $college[4]) : '';
+                $rankingDisplayRank = isset($college[5]) ? str_replace('#', '', $college[5]) : '';
                 
                 $params = [
-                    $college[0] ?? '',  // name (institution.displayName)
-                    $college[1] ?? '',  // state (institution.state)
-                    $college[2] ?? '',  // city (institution.city)
-                    $college[3] ?? '',  // is_public (institution.institutionalControl)
-                    $rankingDisplayRank, // ranking_display_rank (ranking.displayRank)
-                    $college[5] ?? '',  // tuition (searchData.tuition.rawValue)
-                    $college[6] ?? '',  // acceptance_rate (searchData.acceptanceRate.rawValue)
-                    $college[7] ?? '',  // hs_gpa_avg (searchData.hsGpaAvg.rawValue)
-                    $college[8] ?? '',  // enrollment (searchData.enrollment.rawValue)
-                    $college[9] ?? '',  // test_avg_range_1 (searchData.testAvgs.displayValue.0.value)
-                    $college[10] ?? ''  // test_avg_range_2 (searchData.testAvgs.displayValue.1.value)
+
+                    substr($college[0] ?? '', 0, 255),  // name (institution.displayName)
+                    substr($college[1] ?? '', 0, 2),    // state (institution.state)
+                    substr($college[2] ?? '', 0, 100),  // city (institution.city)
+                    substr($college[3] ?? '', 0, 100),   // zip (institution.zip)
+                    substr($college[4] ?? '', 0, 30),   // is_public (institution.institutionalControl)
+                    substr($rankingDisplayRank, 0, 20), // ranking_display_rank (ranking.displayRank)
+                    substr($college[6] ?? '', 0, 20),   // acceptance_rate (searchData.acceptanceRate.rawValue)
+                    substr($college[7] ?? '', 0, 20),   // tuition (searchData.tuition.rawValue)
+                    substr($college[8] ?? '', 0, 30),   // hs_gpa_avg (searchData.hsGpaAvg.rawValue)
+                    substr($college[9] ?? '', 0, 20),   // enrollment (searchData.enrollment.rawValue)
+                    substr($college[10] ?? '', 0, 20),  // test_avg_range_1 (searchData.testAvgs.displayValue.0.value)
+                    substr($college[11] ?? '', 0, 20)   // test_avg_range_2 (searchData.testAvgs.displayValue.1.value)
                 ];
                 
                 $stmt->execute($params);
@@ -155,15 +159,15 @@ class College {
             name VARCHAR(255) NOT NULL,
             state VARCHAR(2),
             city VARCHAR(100),
-            institutionalControl VARCHAR(10),
+            zip VARCHAR(100),
+            is_public VARCHAR(30),
             ranking_display_rank VARCHAR(20),
-            tuition VARCHAR(20),
             acceptance_rate VARCHAR(20),
-            hs_gpa_avg VARCHAR(10),
+            tuition VARCHAR(20),
+            hs_gpa_avg VARCHAR(30),
             enrollment VARCHAR(20),
             test_avg_range_1 VARCHAR(20),
-            test_avg_range_2 VARCHAR(20),
-            zip VARCHAR(10) DEFAULT NULL
+            test_avg_range_2 VARCHAR(20)
         )";
         
         $this->db->executeQuery($sql);

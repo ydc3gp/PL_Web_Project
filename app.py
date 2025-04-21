@@ -3,7 +3,7 @@ import sys
 
 def extract_specific_columns(input_file, output_file):
     # Columns to extract (0-indexed)
-    columns_to_extract = [0, 3, 4, 5, 10, 11, 16, 17, 20, 22, 25]
+    columns_to_extract = [0, 3, 4, 5, 8, 10, 15, 16, 17, 20, 24, 25]
     
     try:
         # Open the input CSV file for reading

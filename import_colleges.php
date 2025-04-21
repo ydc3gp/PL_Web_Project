@@ -3,7 +3,7 @@ require_once __DIR__ . '/../../private/includes/db.php';
 require_once __DIR__ . '/../../private/Models/College.php';
 
 // Path to CSV file
-$csvFile = 'new.csv';
+$csvFile = 'final.csv';
 
 // Create College instance
 $college = new College();

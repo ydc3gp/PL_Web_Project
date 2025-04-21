@@ -115,5 +115,6 @@ require_once __DIR__ . '/../../private/includes/session.php';
     </main>
 
     <script src="hamburger.js"></script>
+    <script src="js/user-data.js"></script>
   </body>
 </html>

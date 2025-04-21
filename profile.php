@@ -205,7 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
               <div class="mb-3">
                 <label for="state_residence" class="form-label"
-                  >State Residence</label
+                  >State Residence (ex: NY)</label
                 >
                 <input
                   type="text"
@@ -227,5 +227,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <script src="hamburger.js"></script>
+    <script src="js/user-data.js"></script>
+    <script src="js/validate-profile.js"></script>
   </body>
 </html>

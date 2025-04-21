@@ -18,7 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 // Get colleges based on filters
 $college = new College();
-$colleges = empty($filters) ? $college->getAllColleges() : $college->getCollegesByFilter($filters);
+$rawColleges = empty($filters) ? $college->getAllColleges() : $college->getCollegesByFilter($filters);
+
+// Filter out invalid college entries (those without a name)
+$colleges = array_filter($rawColleges, function($c) {
+    return !empty(trim($c['name']));
+});
 
 // Get unique states for filter dropdown
 $states = [];
@@ -182,32 +187,72 @@ sort($schoolTypes);
         <div class="col-md-3 align-self-end">
             <button type="submit" class="btn btn-primary w-100">Filter</button>
         </div>
-        </form>
+        
+        <!-- Results Count -->
+        <p class="mb-4">Found <?php echo count($colleges); ?> colleges matching your criteria.</p>
+        
+        <!-- Colleges Grid -->
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
+            <?php foreach ($colleges as $college): ?>
+                <div class="col">
+                    <div class="card college-card h-100">
+                        <?php if (!empty($college['ranking_display_rank']) && $college['ranking_display_rank'] !== '-1'): ?>
+                            <div class="college-rank">
+                                #<?php echo htmlspecialchars($college['ranking_display_rank']); ?>
+                            </div>
+                        <?php endif; ?>
 
-        <div>
-        <?php if (empty($colleges)): ?>
-            <p>No colleges found.</p>
-        <?php else: ?>
-            <?php foreach ($colleges as $c): ?>
-            <div class="card mb-3">
-                <div class="card-body">
-                <h5 class="card-title"><?= htmlspecialchars($c['name']) ?></h5>
-                <p class="card-text">State: <?= htmlspecialchars($c['state']) ?></p>
-                <p class="card-text">Type: <?= htmlspecialchars($c['type']) ?></p>
-                <p class="card-text">Tuition: $<?= number_format($c['tuition']) ?></p>
 
-                <?php if (Session::isLoggedIn()): ?>
-                    <button class="btn btn-outline-primary favorite-button"
-                            data-college-name="<?= htmlspecialchars($c['name']) ?>"
-                            data-location="<?= htmlspecialchars($c['state']) ?>">
-                    🤍 Favorite
-                    </button>
-                    <div class="favorite-status text-success mt-2" style="display: none;"></div>
-                <?php else: ?>
-                    <p><em>Log in to save favorites.</em></p>
-                <?php endif; ?>
+                        <div class="card-body">
+                          <h5 class="card-title"><?php echo htmlspecialchars($college['name']); ?></h5>
+                          <h6 class="card-subtitle mb-2 text-muted">
+                              <!-- <?php echo htmlspecialchars($college['city'] . ', ' . $college['state'] . ' ' . $college['zipcode']); ?> -->
+                              <?php echo htmlspecialchars($college['city'] . ', ' . $college['state'] . ' '); ?>
+                          </h6>
+                          <p class="card-text">
+                              <strong>Type:</strong> <?php echo boolval($college['is_public']) ? 'Public' : 'Private'; ?><br>
+                              <?php if (!empty($college['tuition'])): ?>
+                                  <strong>Tuition:</strong> $<?php echo number_format((float)$college['tuition']); ?><br>
+                              <?php endif; ?>
+                              <?php if (!empty($college['cost_after_aid'])): ?>
+                                  <strong>Cost After Aid:</strong> $<?php echo number_format((float)$college['cost_after_aid']); ?><br>
+                              <?php endif; ?>
+                              <?php if (!empty($college['acceptance_rate'])): ?>
+                                  <strong>Acceptance Rate:</strong> <?php echo htmlspecialchars($college['acceptance_rate']); ?>%<br>
+                              <?php endif; ?>
+                              <?php if (!empty($college['enrollment'])): ?>
+                                  <strong>Enrollment:</strong> <?php echo number_format((float)$college['enrollment']); ?> students<br>
+                              <?php endif; ?>
+                              <?php if (!empty($college['hs_gpa_avg'])): ?>
+                                  <strong>Avg. GPA:</strong> <?php echo htmlspecialchars($college['hs_gpa_avg']); ?><br>
+                              <?php endif; ?>
+                              <?php if (!empty($college['sat_avg'])): ?>
+                                  <strong>Avg. SAT:</strong> <?php echo htmlspecialchars($college['sat_avg']); ?><br>
+                              <?php endif; ?>
+
+                          </p>
+                          <?php if (!empty($college['test_avg_range_1']) && $college['test_avg_range_1'] !== 'N/A'): ?>
+                              <p class="card-text">
+                                  <strong>SAT Range:</strong> <?php echo htmlspecialchars($college['test_avg_range_1']); ?>
+                              </p>
+                          <?php endif; ?>
+                          <?php if (!empty($college['test_avg_range_2']) && $college['test_avg_range_2'] !== 'N/A'): ?>
+                              <p class="card-text">
+                                  <strong>ACT Range:</strong> <?php echo htmlspecialchars($college['test_avg_range_2']); ?>
+                              </p>
+                          <?php endif; ?>
+                          <?php if (Session::isLoggedIn()): ?>
+                            <button class="btn btn-outline-primary favorite-button"
+                                    data-college-name="<?= htmlspecialchars($c['name']) ?>"
+                                    data-location="<?= htmlspecialchars($c['state']) ?>">
+                            🤍 Favorite
+                            </button>
+                            <div class="favorite-status text-success mt-2" style="display: none;"></div>
+                        <?php else: ?>
+                      </div>
+
+                    </div>
                 </div>
-            </div>
             <?php endforeach; ?>
         <?php endif; ?>
 
@@ -242,5 +287,6 @@ sort($schoolTypes);
       });
     });
   </script>
+    <script src="js/user-data.js"></script>
 </body>
 </html>

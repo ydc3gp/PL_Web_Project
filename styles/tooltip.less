@@ -1,0 +1,30 @@
+.card {
+	position: relative;
+}
+
+.college-type-tooltip {
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: rgba(0, 0, 0, 0.8);
+	color: white;
+	padding: 10px 15px;
+	border-radius: 6px;
+	font-size: 14px;
+	width: 250px;
+	text-align: center;
+	z-index: 100;
+	pointer-events: none;
+}
+
+.college-type-tooltip:after {
+	content: '';
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-left: -10px;
+	border-width: 10px;
+	border-style: solid;
+	border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+}

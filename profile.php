@@ -94,15 +94,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <ul class="nav-links">
               <li>
-                <a class="hover-underline-animation" href="search.html"
+                <a class="hover-underline-animation" href="search.php"
                   >Search Colleges</a
                 >
               </li>
               <li>
-                <a class="hover-underline-animation" href="about.html">About</a>
+                <a class="hover-underline-animation" href="about.php">About</a>
               </li>
               <li>
-                <a class="hover-underline-animation center" href="profile.html"
+                <a class="hover-underline-animation center" href="profile.php"
                   >Edit Profile</a
                 >
               </li>
@@ -205,7 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
               <div class="mb-3">
                 <label for="state_residence" class="form-label"
-                  >State Residence</label
+                  >State Residence (ex: NY)</label
                 >
                 <input
                   type="text"
@@ -227,5 +227,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <script src="hamburger.js"></script>
+    <script src="js/user-data.js"></script>
+    <script src="js/validate-profile.js"></script>
   </body>
 </html>

@@ -3,7 +3,7 @@ require_once 'includes/db.php';
 require_once 'src/Models/College.php';
 
 // Path to CSV file
-$csvFile = 'new.csv';
+$csvFile = 'final.csv';
 
 // Create College instance
 $college = new College();

@@ -18,7 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 // Get colleges based on filters
 $college = new College();
-$colleges = empty($filters) ? $college->getAllColleges() : $college->getCollegesByFilter($filters);
+$rawColleges = empty($filters) ? $college->getAllColleges() : $college->getCollegesByFilter($filters);
+
+// Filter out invalid college entries (those without a name)
+$colleges = array_filter($rawColleges, function($c) {
+    return !empty(trim($c['name']));
+});
 
 // Get unique states for filter dropdown
 $states = [];
@@ -205,11 +210,12 @@ sort($schoolTypes);
                         <div class="card-body">
                           <h5 class="card-title"><?php echo htmlspecialchars($college['name']); ?></h5>
                           <h6 class="card-subtitle mb-2 text-muted">
-                              <!-- <?php echo htmlspecialchars($college['city'] . ', ' . $college['state'] . ' ' . $college['zipcode']); ?> -->
                               <?php echo htmlspecialchars($college['city'] . ', ' . $college['state'] . ' '); ?>
                           </h6>
                           <p class="card-text">
-                              <strong>Type:</strong> <?php echo boolval($college['is_public']) ? 'Public' : 'Private'; ?><br>
+                              <?php if (!empty($college['is_public'])): ?>
+                                  <strong>Type:</strong> <?php echo htmlspecialchars(ucfirst($college['is_public'])); ?><br>
+                              <?php endif; ?>
                               <?php if (!empty($college['tuition'])): ?>
                                   <strong>Tuition:</strong> $<?php echo number_format((float)$college['tuition']); ?><br>
                               <?php endif; ?>
@@ -248,5 +254,6 @@ sort($schoolTypes);
     </div>
 
     <script src="hamburger.js"></script>
+    <script src="js/user-data.js"></script>
 </body>
 </html>

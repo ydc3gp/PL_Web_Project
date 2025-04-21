@@ -101,7 +101,7 @@ require_once 'includes/session.php';
             </p>
             <a
               class="btn btn-primary rounded-4 view-colleges-btn"
-              href="search.html"
+              href="search.php"
               >View Colleges</a
             >
           </div>
@@ -115,5 +115,6 @@ require_once 'includes/session.php';
     </main>
 
     <script src="hamburger.js"></script>
+    <script src="js/user-data.js"></script>
   </body>
 </html>
